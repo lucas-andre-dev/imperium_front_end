@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Usuário</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- CSS personalizado -->
+  <link rel="stylesheet" href="user.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg shadow">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="../img/Imperium.png" alt="Logo" width="100" height="40" class="me-2 rounded-3">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="user.html"><i class="bi bi-house"></i> Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="EmObras.html"><i class="bi bi-ticket-detailed"></i> Chamados</a></li>
+          <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:5500/User/userSugestoes.html"><i class="bi bi-lightbulb"></i> Sugestões</a></li>
+          <li class="nav-item"><a class="nav-link text-danger" href="../Login/login.html" id="logout"><i class="bi bi-box-arrow-right"></i> Sair</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Conteúdo principal -->
+  <main class="container py-5">
+    <div class="text-center mb-5">
+      <h2 class="mb-2">Bem-vindo ao Painel do Usuário!</h2>
+      <p class="text-light">Aqui você pode acompanhar seus chamados e enviar sugestões para a equipe.</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card text-center shadow card-hover">
+          <div class="card-body">
+            <a href="http://127.0.0.1:5500/User/user.html"><i class="bi bi-house fs-1 text-primary mb-3"></i>
+            <h5 class="card-title"></a>Início</h5>
+            <p class="card-text">Resumo das atividades recentes e informações gerais.</p>
+              <p></p>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-center shadow card-hover">
+          <div class="card-body">
+            <a href="http://127.0.0.1:5500/User/EmObras.html"><i class="bi bi-ticket-detailed fs-1 text-success mb-3"></i></a>
+            <h5 class="card-title">Chamados</h5>
+            <p class="card-text">Acompanhe o status dos seus chamados e solicitações.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-center shadow card-hover">
+          <div class="card-body">
+            <a href="http://127.0.0.1:5500/User/userSugestoes.html"><i class="bi bi-lightbulb fs-1 text-warning mb-3"></i></a>
+            
+            <h5 class="card-title">Sugestões</h5>
+            <p class="card-text">Envie novas ideias e contribuições para a melhoria do sistema.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../global.js"></script>
+</body>
+</html>

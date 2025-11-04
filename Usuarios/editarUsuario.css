@@ -1,0 +1,16 @@
+body {
+  background-color: #eef2f3;
+}
+
+.card {
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+form {
+  margin-top: 20px;
+}
+
+button {
+  margin: 10px;
+}

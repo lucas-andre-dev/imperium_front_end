@@ -1,0 +1,49 @@
+body {
+  background: linear-gradient(135deg, #144BB7, #0F3684, #092151, #0C2B6B);
+  min-height: 100vh;
+}
+
+.card {
+  border-radius: 15px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.navbar {
+  background-color: #0F3684;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.navbar .nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.navbar .nav-link:hover {
+  color: #dcdcdc !important;
+}
+
+.navbar-brand span {
+  font-weight: 600;
+  color: #fff;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+textarea, input {
+  border-radius: 10px;
+}
+
+h2, h4 {
+  color: #fff;
+}
+
+.nav-link {
+  font-weight: 500;
+}
+
+p {
+  color: #e0e0e0;
+}

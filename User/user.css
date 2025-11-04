@@ -1,0 +1,48 @@
+body {
+  background: linear-gradient(135deg, #144BB7, #0F3684, #092151, #0C2B6B);
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  color: #fff;
+}
+
+.navbar {
+  background-color: #0F3684;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.navbar .nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.navbar .nav-link:hover {
+  color: #dcdcdc !important;
+}
+
+.navbar-brand span {
+  font-weight: 600;
+  color: #fff;
+}
+
+.card {
+  border-radius: 15px;
+  background-color: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+}
+
+.card-body h5 {
+  font-weight: 600;
+}
+
+.card-body p {
+  color: #e0e0e0;
+}

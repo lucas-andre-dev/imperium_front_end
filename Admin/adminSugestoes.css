@@ -1,0 +1,66 @@
+body {
+  background: linear-gradient(135deg, #144BB7, #0F3684, #092151, #0C2B6B);
+  min-height: 100vh;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar-brand img {
+  height: 40px;
+  border-radius: 8px;
+}
+
+.nav-link {
+  color: #0C2B6B !important;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #144BB7 !important;
+}
+
+.nav-link i {
+  margin-right: 5px;
+}
+
+/* CONTEÚDO PRINCIPAL */
+.content {
+  background: #fff;
+  color: #000;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  margin: 2rem auto;
+  padding: 2rem;
+  max-width: 1000px;
+  text-align: center;
+  animation: fadeIn 0.8s ease;
+}
+
+/* ANIMAÇÃO DE ENTRADA */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RODAPÉ */
+footer {
+  text-align: center;
+  color: #ccc;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.table-responsive {
+  margin-top: 1rem;
+}
+
+table td {
+  vertical-align: middle;
+}
