@@ -100,5 +100,6 @@ function deletarUsuario(id) {
   }
 }
 
+
 // REGAREGA A LISTA DE USUARIOS, PARA MANTER ATUALIZIADA
 carregarUsuarios();

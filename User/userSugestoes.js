@@ -119,5 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
     inputId.value = id;
   };
 
+
   carregarSugestoes();
 });

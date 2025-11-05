@@ -63,4 +63,13 @@ form.addEventListener("submit", e => {
       console.error(err);
       alert("Falha ao salvar alterações, Esse email não está disponivel, tente outro!");
     });
+    //VERIFICA SE USUARIO É ADMIN E ESTÁ LOGADO
+    document.addEventListener("DOMContentLoaded", () => {
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+      if (!usuario || !usuario.logado || !usuario.roles.includes("ADMIN")) {
+        alert("Acesso negado! Esta página é exclusiva para administradores.");
+        window.location.href = "../User/user.html";
+  }
+});
 });
