@@ -10,20 +10,23 @@ body {
 /* ===== Navbar ===== */
 .navbar {
   background-color: #0F3684;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.2);
 }
 
 .navbar .nav-link {
-  color: #ffffff !important;
+  color: #fff !important;
   font-weight: 500;
   transition: color 0.2s;
 }
 
-.navbar .nav-link:hover,
-.navbar .nav-link.active {
-  color: #bcd4ff !important;
+.navbar .nav-link:hover {
+  color: #dcdcdc !important;
 }
 
+.navbar-brand span {
+  font-weight: 600;
+  color: #fff;
+}
 /* ===== Container principal ===== */
 main {
   margin-top: 50px;
