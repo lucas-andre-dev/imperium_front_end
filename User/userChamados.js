@@ -9,19 +9,15 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const id = document.getElementById("idChamadoEdicao").value;
     const chamado = {
       setor: document.getElementById("setor").value,
       assunto: document.getElementById("assunto").value,
       descricao: document.getElementById("descricao").value,
-      usuarioId: usuario.id
+      status: "pendente",
+      user: { id: usuario.id },
     };
 
-    if (id) {
-      await atualizarChamado(id, chamado);
-    } else {
-      await criarChamado(chamado);
-    }
+    await criarChamado(chamado);
 
     form.reset();
     document.getElementById("idChamadoEdicao").value = "";
@@ -29,6 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// ================== FUNÇÕES ===================
+
+// Carrega os chamados do usuário logado
 async function carregarMeusChamados(idUsuario) {
   try {
     const resposta = await fetch(`http://localhost:8080/chamados/${idUsuario}`);
@@ -39,6 +38,16 @@ async function carregarMeusChamados(idUsuario) {
   }
 }
 
+// Cria um novo chamado
+async function criarChamado(chamado) {
+  await fetch("http://localhost:8080/chamados", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(chamado),
+  });
+}
+
+// Preenche a tabela com os chamados
 function preencherTabela(chamados) {
   const tabela = document.getElementById("tabelaChamadosUsuario");
   tabela.innerHTML = "";
@@ -54,37 +63,38 @@ function preencherTabela(chamados) {
       <td>${chamado.id}</td>
       <td>${chamado.setor}</td>
       <td>${chamado.assunto}</td>
+      <td>${chamado.descricao}</td>
       <td>
-        <span class="badge ${chamado.status === 'PENDENTE' ? 'bg-warning' : 'bg-success'}">
+        <span class="badge ${
+          chamado.status === "PENDENTE" ? "bg-warning" : "bg-success"
+        }">
           ${chamado.status}
         </span>
       </td>
-      <td>${new Date(chamado.dataCriacao).toLocaleDateString()}</td>
+      <td>${new Date(chamado.data).toLocaleString()}</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary me-2" onclick="editarChamado(${chamado.id})"><i class="bi bi-pencil"></i></button>
-        <button class="btn btn-sm btn-outline-danger" onclick="excluirChamado(${chamado.id})"><i class="bi bi-trash"></i></button>
+        <button class="btn btn-sm btn-outline-primary me-2" onclick="editarChamado(${chamado.id})">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-danger" onclick="excluirChamado(${chamado.id})">
+          <i class="bi bi-trash"></i>
+        </button>
       </td>
     `;
     tabela.appendChild(tr);
   });
 }
 
-async function criarChamado(chamado) {
-  await fetch("http://localhost:8080/chamados", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(chamado)
-  });
-}
-
+// Atualiza um chamado existente
 async function atualizarChamado(id, chamado) {
   await fetch(`http://localhost:8080/chamados/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(chamado)
+    body: JSON.stringify(chamado),
   });
 }
 
+// Exclui um chamado
 async function excluirChamado(id) {
   if (confirm("Deseja realmente excluir este chamado?")) {
     await fetch(`http://localhost:8080/chamados/${id}`, { method: "DELETE" });
@@ -93,14 +103,11 @@ async function excluirChamado(id) {
   }
 }
 
+// Edita um chamado
 async function editarChamado(id) {
-  const resposta = await fetch(`http://localhost:8080/chamados/${id}`);
-  const chamado = await resposta.json();
+    // Salva o ID no localStorage
+    localStorage.setItem("chamadoId", id,assunto,descricao);
 
-  document.getElementById("idChamadoEdicao").value = chamado.id;
-  document.getElementById("setor").value = chamado.setor;
-  document.getElementById("assunto").value = chamado.assunto;
-  document.getElementById("descricao").value = chamado.descricao;
-
-  window.scrollTo({ top: 0, behavior: "smooth" });
+    // Redireciona para a página de edição
+    window.location.href = "editarChamados.html";
 }

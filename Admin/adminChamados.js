@@ -1,8 +1,7 @@
-const API_URL = "http://localhost:8080/chamados"; // ajuste se a porta for diferente
+const API_URL = "http://localhost:8080/chamados";
 const tableBody = document.getElementById("chamadosTable");
-const filtroStatus = document.getElementById("filtroStatus");
 
-// Função para carregar chamados do backend
+// Função para carregar todos os chamados
 async function carregarChamados() {
   try {
     const response = await fetch(API_URL);
@@ -21,65 +20,73 @@ async function carregarChamados() {
   }
 }
 
-// Renderiza chamados na tabela
+// Renderiza todos os chamados na tabela
 function renderChamados() {
-  const filtro = filtroStatus.value;
   tableBody.innerHTML = "";
 
-  const filtrados = window.chamados.filter(c => c.status.toLowerCase() === filtro);
-
-  if (filtrados.length === 0) {
+  if (!window.chamados || window.chamados.length === 0) {
     tableBody.innerHTML = `
       <tr><td colspan="7" class="text-center text-muted">
-        Nenhum chamado ${filtro === 'aberto' ? 'aberto' : 'resolvido'} encontrado.
+        Nenhum chamado encontrado.
       </td></tr>
     `;
     return;
   }
 
-  filtrados.forEach(ch => {
+  window.chamados.forEach(ch => {
     const row = document.createElement("tr");
+
+    // Formata a data corretamente
+    const dataFormatada = ch.data
+      ? new Date(ch.data).toLocaleDateString()
+      : "-";
+
     row.innerHTML = `
-      <td>${ch.nome}</td>
+      <td>${ch.user ? ch.user.nome : "-"}</td>
       <td>${ch.setor}</td>
-      <td>${ch.titulo}</td>
+      <td>${ch.assunto}</td>
       <td>${ch.descricao}</td>
-      <td>${ch.hora}</td>
-      <td class="${ch.status === 'ABERTO' ? 'status-aberto' : 'status-resolvido'}">
-        ${ch.status === 'ABERTO' ? 'Aberto' : 'Resolvido'}
+      <td>${dataFormatada}</td>
+      <td>
+        <span class="badge ${ch.status === 'ABERTO' ? 'bg-warning' : 'bg-success'}">
+          ${ch.status}
+        </span>
       </td>
       <td>
-        <button class="btn btn-sm ${ch.status === 'ABERTO' ? 'btn-success' : 'btn-warning'} btn-status"
-          onclick="alterarStatus(${ch.id}, '${ch.status}')">
-          <i class="bi ${ch.status === 'ABERTO' ? 'bi-check-circle' : 'bi-arrow-counterclockwise'}"></i>
-          ${ch.status === 'ABERTO' ? 'Resolver' : 'Reabrir'}
+        <button class="btn btn-sm  me-1 btn btn-success"" onclick="editarChamado(${ch.id})">
+          <i class="bi bi-check2-circle"></i>
         </button>
+        ${
+          ch.status === "ABERTO"
+            ? `<button class="btn btn-sm btn-success" onclick="resolverChamado(${ch.id})">
+                 <i class="bi bi-check-lg"></i> Resolver
+               </button>`
+            : "-"
+        }
       </td>
     `;
+
     tableBody.appendChild(row);
   });
 }
 
-// Atualiza o status no backend
-async function alterarStatus(id, statusAtual) {
-  const novoStatus = statusAtual === "ABERTO" ? "RESOLVIDO" : "ABERTO";
-
-  if (!confirm(`Deseja marcar este chamado como ${novoStatus.toLowerCase()}?`)) return;
+// Atualiza o status para RESOLVIDO
+async function resolverChamado(id) {
+  if (!confirm("Deseja marcar este chamado como RESOLVIDO?")) return;
 
   try {
-    const response = await fetch(`${API_URL}/${id}/status`, {
+    const response = await fetch(`${API_URL}/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: novoStatus })
+      body: JSON.stringify({ status: "RESOLVIDO" })
     });
 
     if (!response.ok) throw new Error("Erro ao atualizar status");
 
-    // Atualiza localmente sem precisar recarregar a página
+    // Atualiza localmente sem recarregar a página
     window.chamados = window.chamados.map(c =>
-      c.id === id ? { ...c, status: novoStatus } : c
+      c.id === id ? { ...c, status: "RESOLVIDO" } : c
     );
-
     renderChamados();
   } catch (error) {
     console.error(error);
@@ -87,8 +94,11 @@ async function alterarStatus(id, statusAtual) {
   }
 }
 
-// Filtro de status
-filtroStatus.addEventListener("change", renderChamados);
+// Redireciona para a página de edição do chamado
+function editarChamado(id) {
+  localStorage.setItem("chamadoId", id);
+  window.location.href = "editarChamado.html";
+}
 
 // Inicialização
-carregarChamados();
+document.addEventListener("DOMContentLoaded", carregarChamados);
