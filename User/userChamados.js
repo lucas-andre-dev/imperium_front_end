@@ -53,7 +53,7 @@ function preencherTabela(chamados) {
   tabela.innerHTML = "";
 
   if (chamados.length === 0) {
-    tabela.innerHTML = `<tr><td colspan="6">Nenhum chamado encontrado.</td></tr>`;
+    tabela.innerHTML = `<tr><td colspan="7">Nenhum chamado encontrado.</td></tr>`;
     return;
   }
 
@@ -66,7 +66,7 @@ function preencherTabela(chamados) {
       <td>${chamado.descricao}</td>
       <td>
         <span class="badge ${
-          chamado.status === "PENDENTE" ? "bg-warning" : "bg-success"
+          chamado.status === "pendente" ? "bg-warning" : "bg-success"
         }">
           ${chamado.status}
         </span>

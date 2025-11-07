@@ -48,16 +48,18 @@ function renderChamados() {
       <td>${ch.descricao}</td>
       <td>${dataFormatada}</td>
       <td>
-        <span class="badge ${ch.status === 'ABERTO' ? 'bg-warning' : 'bg-success'}">
+       <span class="badge ${
+          ch.status === "pendente" ? "bg-warning" : "bg-success"
+        }">
           ${ch.status}
         </span>
+      
       </td>
+  
       <td>
-        <button class="btn btn-sm  me-1 btn btn-success"" onclick="editarChamado(${ch.id})">
-          <i class="bi bi-check2-circle"></i>
-        </button>
         ${
-          ch.status === "ABERTO"
+          
+          ch.status === "pendente"
             ? `<button class="btn btn-sm btn-success" onclick="resolverChamado(${ch.id})">
                  <i class="bi bi-check-lg"></i> Resolver
                </button>`
@@ -72,20 +74,20 @@ function renderChamados() {
 
 // Atualiza o status para RESOLVIDO
 async function resolverChamado(id) {
-  if (!confirm("Deseja marcar este chamado como RESOLVIDO?")) return;
+  if (!confirm("Deseja marcar este chamado como RESOLVIDO?")) ;
 
   try {
-    const response = await fetch(`${API_URL}/${id}`, {
+    const response = await fetch(`${API_URL}/${"resolvido"}/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: "RESOLVIDO" })
+      body: JSON.stringify({ status: "resolvido" })
     });
 
     if (!response.ok) throw new Error("Erro ao atualizar status");
 
     // Atualiza localmente sem recarregar a página
     window.chamados = window.chamados.map(c =>
-      c.id === id ? { ...c, status: "RESOLVIDO" } : c
+      c.id === id ? { ...c, status: "resolvido" } : c
     );
     renderChamados();
   } catch (error) {
@@ -94,11 +96,6 @@ async function resolverChamado(id) {
   }
 }
 
-// Redireciona para a página de edição do chamado
-function editarChamado(id) {
-  localStorage.setItem("chamadoId", id);
-  window.location.href = "editarChamado.html";
-}
 
 // Inicialização
 document.addEventListener("DOMContentLoaded", carregarChamados);
