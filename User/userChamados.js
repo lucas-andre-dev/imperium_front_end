@@ -106,7 +106,7 @@ async function excluirChamado(id) {
 // Edita um chamado
 async function editarChamado(id) {
     // Salva o ID no localStorage
-    localStorage.setItem("chamadoId", id,assunto,descricao);
+    localStorage.setItem("chamadoId", id);
 
     // Redireciona para a página de edição
     window.location.href = "editarChamados.html";

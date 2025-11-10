@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const response = await fetch(`http://localhost:8080/chamados/${id}`);
+    const response = await fetch(`http://localhost:8080/chamados/listar/${id}`);
     if (!response.ok) throw new Error("Erro ao buscar chamado");
 
     const chamado = await response.json();

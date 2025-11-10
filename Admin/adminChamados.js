@@ -1,15 +1,37 @@
 const API_URL = "http://localhost:8080/chamados";
+const API_URL_TODOS = "http://localhost:8080/chamados";
+const API_URL_PENDENTE = "http://localhost:8080/chamados/status/pendente";
+const API_URL_RESOLVIDO = "http://localhost:8080/chamados/status/resolvido";
 const tableBody = document.getElementById("chamadosTable");
-
+const option = document.getElementById("filtroStatus");
 // Função para carregar todos os chamados
 async function carregarChamados() {
   try {
-    const response = await fetch(API_URL);
-    if (!response.ok) throw new Error("Erro ao carregar chamados");
+    if(option.value === "todos"){
+      const response = await fetch(API_URL_TODOS);
+      if (!response.ok) throw new Error("Erro ao carregar chamados");
 
-    const dados = await response.json();
-    window.chamados = dados; // guarda globalmente
-    renderChamados();
+      const dados = await response.json();
+      window.chamados = dados; // guarda globalmente
+      renderChamados();
+    }
+
+    if(option.value === "pendente"){
+      const response = await fetch(API_URL_PENDENTE);
+      if (!response.ok) throw new Error("Erro ao carregar chamados");
+
+      const dados = await response.json();
+      window.chamados = dados; // guarda globalmente
+      renderChamados();
+    }
+    if(option.value == "resolvido"){
+      const response = await fetch(API_URL_RESOLVIDO);
+      if (!response.ok) throw new Error("Erro ao carregar chamados");
+
+      const dados = await response.json();
+      window.chamados = dados; // guarda globalmente
+      renderChamados();
+    }
   } catch (error) {
     console.error(error);
     tableBody.innerHTML = `
@@ -19,6 +41,8 @@ async function carregarChamados() {
     `;
   }
 }
+// AO MUDAR O FILTRO RECARREGA CHAMADOS
+option.addEventListener("change",()=>{carregarChamados()});
 
 // Renderiza todos os chamados na tabela
 function renderChamados() {

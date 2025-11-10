@@ -1,8 +1,8 @@
-let produtos = JSON.parse(localStorage.getItem("estoque")) || [];
-let editIndex = null;
-
 const form = document.getElementById("formProduto");
 const tabela = document.getElementById("tabelaEstoque");
+
+// conectar com api
+
 
 // Salvar produto
 form.addEventListener("submit", (e) => {
@@ -20,14 +20,8 @@ form.addEventListener("submit", (e) => {
 
   const produto = { nome, categoria, quantidade, valor };
 
-  if (editIndex === null) {
-    produtos.push(produto);
-  } else {
-    produtos[editIndex] = produto;
-    editIndex = null;
-  }
 
-  salvarLocal();
+
   atualizarTabela();
   form.reset();
 });
@@ -53,29 +47,10 @@ function atualizarTabela() {
   });
 }
 
-// Editar produto
-function editar(index) {
-  const p = produtos[index];
-  document.getElementById("nome").value = p.nome;
-  document.getElementById("categoria").value = p.categoria;
-  document.getElementById("quantidade").value = p.quantidade;
-  document.getElementById("valor").value = p.valor;
-  editIndex = index;
-}
 
-// Remover produto
-function remover(index) {
-  if (confirm("Deseja remover este produto?")) {
-    produtos.splice(index, 1);
-    salvarLocal();
-    atualizarTabela();
-  }
-}
 
-// Salvar no localStorage
-function salvarLocal() {
-  localStorage.setItem("estoque", JSON.stringify(produtos));
-}
+
+
 
 // Inicializa
 atualizarTabela();
