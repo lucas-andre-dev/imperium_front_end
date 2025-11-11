@@ -4,6 +4,8 @@ const API_URL_PENDENTE = "http://localhost:8080/chamados/status/pendente";
 const API_URL_RESOLVIDO = "http://localhost:8080/chamados/status/resolvido";
 const tableBody = document.getElementById("chamadosTable");
 const option = document.getElementById("filtroStatus");
+
+
 // Função para carregar todos os chamados
 async function carregarChamados() {
   try {

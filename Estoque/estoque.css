@@ -61,3 +61,13 @@ footer {
 table td {
   vertical-align: middle;
 }
+
+
+.modal-content {
+  background-color: #fff;
+  color: #000;
+}
+
+.modal-title {
+  color: #000;
+}
