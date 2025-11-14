@@ -4,7 +4,7 @@ function verificarLogin() {
 
     if (!usuario || usuario.logado !== true) {
         alert("Acesso negado! Faça login novamente.");
-        window.location.href = "../Login/login.html";
+        window.location.href = "../Login/index.html";
         return false;
     }
 
@@ -26,7 +26,7 @@ function configurarLogout() {
 
             if (confirm("Deseja realmente sair?")) {
                 localStorage.removeItem("usuario"); // limpa apenas os dados do usuário
-                window.location.href = "../Login/login.html";
+                window.location.href = "../index.html";
             }
         });
     }

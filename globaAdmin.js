@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Se não estiver logado, redireciona
     if (!usuario || !usuario.logado) {
         alert("Acesso negado! Faça login primeiro.");
-        window.location.href = "../Login/login.html";
+        window.location.href = "../index.html";
         return;
     }
 

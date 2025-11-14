@@ -2,6 +2,8 @@ const form = document.getElementById("formProduto");
 const tabela = document.getElementById("tabelaEstoque");
 const alerta = document.getElementById("alert");
 
+//ativar modal SALVAR PRODUTO
+
 // Salvar produto
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
