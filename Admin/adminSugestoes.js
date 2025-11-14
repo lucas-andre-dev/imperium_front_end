@@ -16,7 +16,7 @@ async function carregarSugestoes() {
           <td>${s.sugestao}</td>
           <td>${new Date(s.dataCriacao).toLocaleString()}</td>
           <td>
-            <button class="btn btn-sm btn-danger" onclick="deletarSugestao(${s.id})"><i class="bi bi-trash"></i></button>
+            <button class="btn btn-sm btn-danger" onclick="desejaDeletar(${s.id},'${s.titulo}')"><i class="bi bi-trash"></i></button>
           </td>
         </tr>
       `;
@@ -25,10 +25,16 @@ async function carregarSugestoes() {
     console.error(err);
   }
 }
-3
+// perguntar se deseja realmente deletar
+function desejaDeletar(id,titulo){
+
+  if(confirm(`Deseja realmente deletar a sugestão de titulo ${titulo}?`)){
+    deletarSugestao(id);
+  }
+
+}
 // DELETAR SUGESTÕES DO BANCO
 async function deletarSugestao(id) {
-  if (confirm(`Deseja realmente deletar a sugestão ${id}?`)) {
     try {
       const response = await fetch(`http://localhost:8080/sugestoes/${id}`, {
         method: "DELETE"
@@ -36,13 +42,13 @@ async function deletarSugestao(id) {
 
       if (!response.ok) throw new Error("Erro ao deletar sugestão");
 
-      alert(`Sugestão ${id} deletada com sucesso!`);
+      alert(`Sugestão deletada com sucesso!`);
       carregarSugestoes();
     } catch (error) {
       console.error(error);
       alert("Erro ao deletar sugestão. Tente novamente mais tarde.");
     }
-  }
+  
 }
 
 

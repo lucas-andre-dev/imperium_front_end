@@ -11,11 +11,11 @@ form.addEventListener("submit", async (e) => {
   const valor = parseFloat(document.getElementById("valor").value);
 
   if (!nome || quantidade <= 0 || valor <= 0) {
-    alert("Preencha todos os campos corretamente!");
+    alerta.innerHTML=`<div>Preencha todos os campos corretamente!</div>`;
     return;
   }
 
-  const produto = { nome, quantidade, valor };
+  const produto = {nome,quantidade,valor};
 
   try {
     const url = "http://localhost:8080/estoque";               
@@ -29,25 +29,45 @@ form.addEventListener("submit", async (e) => {
       throw new Error(`Erro: ${response.status}`);
     }
 
-    alerta.innerHTML = `
-      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        Produto adicionado com sucesso!
-      </div>`;
+    if(response.ok){
+      alerta.innerHTML = `
+        <div class="alert alert-success" role="alert" aria-live="assertive" aria-atomic="true">
+          Produto adicionado com sucesso!
+        </div>`;
+
+    }
     
     form.reset();
     atualizarTabela();
 
-  } catch (error) {
+  } 
+  catch (error) {
     console.error("Erro ao adicionar produto:", error);
     alerta.innerHTML = `
-      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="alert alert-danger" role="alert" aria-live="assertive" aria-atomic="true">
         Falha ao adicionar o produto. Tente novamente!
       </div>`;
   }
   // apaga mensagem alerta
-  setTimeout(() => alerta.innerHTML = `<div></div>`, 3000);
+  setTimeout(() => alerta.innerHTML = ``, 3000);
 });
-
+// MODAL DE ALTERAÇÃO 
+function abrirModalEdicao(id,nome,quantidade,valor){
+  document.getElementById("editarNome").value= nome ;
+  document.getElementById("editarQuantidade").value = quantidade ;
+  document.getElementById("editarValor").value = valor ;
+  const btn = document.getElementById("btnSalvarEdicao");
+  const modalEditar = document.getElementById("modalEditarProduto");
+  const modal = new bootstrap.Modal(modalEditar) ;
+  modal. show();
+  btn.addEventListener("click",()=>{
+  const nomeEditar = document.getElementById("editarNome").value.trim();
+  const quantidadeEditar = parseInt(document.getElementById("editarQuantidade").value);
+  const valorEditar = parseFloat(document.getElementById("editarValor").value);
+    editarProd(id,nomeEditar,quantidadeEditar,valorEditar);
+    modal.hide();
+  })
+}
 // Atualizar tabela
 async function atualizarTabela() {
   const url = "http://localhost:8080/estoque";
@@ -66,12 +86,15 @@ async function atualizarTabela() {
           <td>${produto.quantidade}</td>
           <td>${produto.valor}</td>
           <td>${(produto.quantidade * produto.valor).toFixed(2)}</td>
-          <td><button type="button" class="btn btn-danger" onclick="abrirModal(${produto.id})">Excluir</button></td>
+          <td>
+            <button type="button" class="btn btn-danger bi bi-trash" onclick="abrirModal(${produto.id})"></button>
+            <button type="button" class = "bi bi-pencil btn btn-warning" onclick="abrirModalEdicao(${produto.id},'${produto.nome}',${produto.quantidade},${produto.valor})"></button>
+          </td>
 
         </tr>`;
     });
 
-    alerta.innerHTML = "";
+
 
   } catch (error) {
     console.error("Erro ao atualizar tabela:", error);
@@ -88,35 +111,71 @@ const url = `http://localhost:8080/estoque/excluir/${id}`;
 try{
   const response = await fetch(url,{method:"DELETE"});
   
-  alerta.innerHTML = `
-    <div class="alert alert-warning" role="alert">
-        Produto deletado com sucesso!
-    </div>`;
-  if(!response.ok){
+  if(response.status == 200||response.status == 204){
       alerta.innerHTML = `
-      <div class="alert alert-warning" role="alert">
-        Não foi possível deletar o produto!
-      </div>`;    
+      <div class="alert alert-success" role="alert" aria-live="assertive" aria-atomic="true">
+        produto deletado com sucesso
+      </div>`;
+  }else{
+    alerta.innerHTML=`<div class="alert alert-warning" role="alert">
+        Não foi possível alterar o produto!
+      </div>`;
   }
-  alerta.innerHTML = `
-    <div class="alert alert-warning" role="alert">
-        Produto deletado com sucesso!
-    </div>`;
+
   atualizarTabela();
   setTimeout(()=>(alerta.innerHTML=""),3000);
 
 }
-catch{
-      alerta.innerHTML = `
-      <div class="alert alert-warning" role="alert">
-        Não foi possível deletar o produto!
-      </div>`;
+catch(error){
+    alerta.innerHTML = `<div class="alert alert-danger" role="alert">
+      Erro ao deletar: ${error.message}
+    </div>`;
+    setTimeout(() => (alerta.innerHTML = ""), 3000);
+    console.error(error);
+  
 
 }
 
 
 
 
+}
+// ALTERAR
+async function editarProd(id,nome,quantidade,valor){
+  
+  const dados = {
+    id: parseInt(id),
+    nome: nome,
+    quantidade: parseInt(quantidade),
+    valor: parseFloat(valor)
+  };
+  try{
+    const url ="http://localhost:8080/estoque";
+    const response = await fetch(url,{method:"PUT",
+                                      headers:{"Content-Type": "application/json"},
+                                      body: JSON.stringify(dados)
+    })
+  if(response.status == 200||response.status == 204){
+      alerta.innerHTML = `
+      <div class="alert alert-success">Produto alterado com sucesso!</div>`;
+      setTimeout(() => (alerta.innerHTML = ""), 3000);
+  }else{
+    alerta.innerHTML=`<div class="alert alert-warning" role="alert">
+        Não foi possível alterar o produto!
+      </div>`;
+      setTimeout(() => (alerta.innerHTML = ""), 3000);
+  }
+
+    atualizarTabela()
+  }
+  catch(error){
+    alerta.innerHTML = `<div class="alert alert-danger" role="alert">
+      Erro ao deletar: ${error.message}
+    </div>`;
+    setTimeout(() => (alerta.innerHTML = ""), 3000);
+    console.error(error);
+
+  }
 }
 
 // Atualiza a tabela a cada 10s
