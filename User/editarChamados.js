@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const response = await fetch(`https://imperium-api-1.onrender.com//chamados/listar/${id}`);
+    const response = await fetch(`https://imperium-api-1.onrender.com/chamados/listar/${id}`);
     if (!response.ok) throw new Error("Erro ao buscar chamado");
 
     const chamado = await response.json();

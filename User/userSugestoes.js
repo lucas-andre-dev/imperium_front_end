@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
   const userID = usuario.id;
-  const apiUrl = "http://localhost:8080/sugestoes";
+  const apiUrl = "https://imperium-api-1.onrender.com/sugestoes";
 
   // Carregar sugestões do usuário
   async function carregarSugestoes() {

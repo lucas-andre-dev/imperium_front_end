@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Carrega os chamados do usuário logado
 async function carregarMeusChamados(idUsuario) {
   try {
-    const resposta = await fetch(`http://localhost:8080/chamados/${idUsuario}`);
+    const resposta = await fetch(`https://imperium-api-1.onrender.com/chamados/${idUsuario}`);
     const chamados = await resposta.json();
     preencherTabela(chamados);
   } catch (erro) {
@@ -40,7 +40,7 @@ async function carregarMeusChamados(idUsuario) {
 
 // Cria um novo chamado
 async function criarChamado(chamado) {
-  await fetch("http://localhost:8080/chamados", {
+  await fetch("https://imperium-api-1.onrender.com/chamados", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(chamado),
@@ -87,7 +87,7 @@ function preencherTabela(chamados) {
 
 // Atualiza um chamado existente
 async function atualizarChamado(id, chamado) {
-  await fetch(`http://localhost:8080/chamados/${id}`, {
+  await fetch(`https://imperium-api-1.onrender.com/chamados/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(chamado),
@@ -97,7 +97,7 @@ async function atualizarChamado(id, chamado) {
 // Exclui um chamado
 async function excluirChamado(id) {
   if (confirm("Deseja realmente excluir este chamado?")) {
-    await fetch(`http://localhost:8080/chamados/${id}`, { method: "DELETE" });
+    await fetch(`https://imperium-api-1.onrender.com/chamados/${id}`, { method: "DELETE" });
     const usuario = getUsuarioLogado();
     carregarMeusChamados(usuario.id);
   }
