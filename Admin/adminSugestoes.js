@@ -1,7 +1,7 @@
 // FUNÇÃO PARA CARREGAR TODAS AS SUGESTÕES DO BANCO
 async function carregarSugestoes() {
   try {
-    const response = await fetch('http://localhost:8080/sugestoes/all'); // ENDPOINT QUE RETORNA AS SUGESTÕES
+    const response = await fetch('https://imperium-api-1.onrender.com/sugestoes/all'); // ENDPOINT QUE RETORNA AS SUGESTÕES
     if (!response.ok) throw new Error('Erro ao carregar sugestões');
 
     const sugestoes = await response.json();
@@ -36,7 +36,7 @@ function desejaDeletar(id,titulo){
 // DELETAR SUGESTÕES DO BANCO
 async function deletarSugestao(id) {
     try {
-      const response = await fetch(`http://localhost:8080/sugestoes/${id}`, {
+      const response = await fetch(`https://imperium-api-1.onrender.com/sugestoes/${id}`, {
         method: "DELETE"
       });
 
