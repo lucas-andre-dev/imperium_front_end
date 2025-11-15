@@ -1,7 +1,7 @@
-const API_URL = "http://localhost:8080/chamados";
-const API_URL_TODOS = "http://localhost:8080/chamados";
-const API_URL_PENDENTE = "http://localhost:8080/chamados/status/pendente";
-const API_URL_RESOLVIDO = "http://localhost:8080/chamados/status/resolvido";
+const API_URL = "https://imperium-api-1.onrender.com/chamados";
+const API_URL_TODOS = "https://imperium-api-1.onrender.com/chamados";
+const API_URL_PENDENTE = "https://imperium-api-1.onrender.com/chamados/status/pendente";
+const API_URL_RESOLVIDO = "https://imperium-api-1.onrender.com/chamados/status/resolvido";
 const tableBody = document.getElementById("chamadosTable");
 const option = document.getElementById("filtroStatus");
 

@@ -18,7 +18,7 @@ btn.addEventListener("click", async function(event) {
     }
 
     try {
-        const response = await fetch("http://172.20.13.53:8080/auth", {
+        const response = await fetch("https://imperium-api-1.onrender.com/auth", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(dados)

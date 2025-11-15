@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const response = await fetch(`http://localhost:8080/chamados/listar/${id}`);
+    const response = await fetch(`https://imperium-api-1.onrender.com//chamados/listar/${id}`);
     if (!response.ok) throw new Error("Erro ao buscar chamado");
 
     const chamado = await response.json();
@@ -47,7 +47,7 @@ form.addEventListener("submit",async (event)=>{
 // Atualiza um chamado existente
 
 async function atualizarChamado(id, chamado) {
-  const response = await fetch(`http://localhost:8080/chamados/${id}`, {
+  const response = await fetch(`https://imperium-api-1.onrender.com/chamados/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(chamado),

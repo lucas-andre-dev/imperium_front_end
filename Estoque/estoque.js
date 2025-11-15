@@ -20,7 +20,7 @@ form.addEventListener("submit", async (e) => {
   const produto = {nome,quantidade,valor};
 
   try {
-    const url = "http://localhost:8080/estoque";               
+    const url = "https://imperium-api-1.onrender.com/estoque";               
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -72,7 +72,7 @@ function abrirModalEdicao(id,nome,quantidade,valor){
 }
 // Atualizar tabela
 async function atualizarTabela() {
-  const url = "http://localhost:8080/estoque";
+  const url = "https://imperium-api-1.onrender.com/estoque";
   try {
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Erro: ${response.status}`);
@@ -109,7 +109,7 @@ async function atualizarTabela() {
 
 // excluir
 async function deletarProd(id){
-const url = `http://localhost:8080/estoque/excluir/${id}`;
+const url = `https://imperium-api-1.onrender.com/estoque/excluir/${id}`;
 try{
   const response = await fetch(url,{method:"DELETE"});
   
@@ -152,7 +152,7 @@ async function editarProd(id,nome,quantidade,valor){
     valor: parseFloat(valor)
   };
   try{
-    const url ="http://localhost:8080/estoque";
+    const url ="https://imperium-api-1.onrender.com/estoque";
     const response = await fetch(url,{method:"PUT",
                                       headers:{"Content-Type": "application/json"},
                                       body: JSON.stringify(dados)

@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:8080/usuarios";
+const apiUrl = "https://imperium-api-1.onrender.com/usuarios";
 
 // pega o ID passado na URL
 const params = new URLSearchParams(window.location.search);
